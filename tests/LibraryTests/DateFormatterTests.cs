@@ -19,12 +19,14 @@ public class Tests
     [Test]
     public void TestFormatoIncorrecto()
     {
-        Assert.Pass();
+        string resultado = DateFormatter.ChangeFormat("23082005");
+        Assert.AreNotEqual("2005-08-23",resultado);
     }
     
     [Test]
     public void TestFechaEnBlanco()
     {
-        Assert.Pass();
+        string resultado = DateFormatter.ChangeFormat("");
+        Assert.AreEqual("",resultado);
     }
 }
