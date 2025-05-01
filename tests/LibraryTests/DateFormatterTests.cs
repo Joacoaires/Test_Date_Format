@@ -1,32 +1,45 @@
 ﻿using Ucu.Poo.TestDateFormat;
 using NUnit.Framework;
-namespace LibraryTests;
 
-public class Tests
+namespace LibraryTests
 {
-    [SetUp]
-    public void Setup()
+    public class DateFormatterTests
     {
-    }
+        [Test]
+        public void FechaFormatoCorrecto()
+        {
+            // Arrange
+            string testDate = "10/11/1997";
 
-    [Test]
-    public void TestFormatoCorrecto()
-    {
-        string resultado = DateFormatter.ChangeFormat("23/08/2005");
-        Assert.AreEqual("2005-08-23",resultado);
-    }
-    
-    [Test]
-    public void TestFormatoIncorrecto()
-    {
-        string resultado = DateFormatter.ChangeFormat("23082005");
-        Assert.AreNotEqual("2005-08-23",resultado);
-    }
-    
-    [Test]
-    public void TestFechaEnBlanco()
-    {
-        string resultado = DateFormatter.ChangeFormat("");
-        Assert.AreEqual("",resultado);
+            // Act
+            string changedDate = DateFormatter.ChangeFormat(testDate);
+
+            // Assert
+            Assert.That(changedDate, Is.EqualTo("1997-11-10"));
+        }
+
+        [Test]
+        public void FechaFormatoEnBlanco_LanzaFormatException()
+        {
+            string testDate = "";
+
+            Assert.Throws<FormatException>(() => DateFormatter.ChangeFormat(testDate));
+        }
+
+        [Test]
+        public void FechaFormatoIncorrecto_LanzaFormatException()
+        {
+            string testDate = "10-11-1997";
+
+            Assert.Throws<FormatException>(() => DateFormatter.ChangeFormat(testDate));
+        }
+
+        [Test]
+        public void FechaNull_LanzaFormatException()
+        {
+            string testDate = null;
+
+            Assert.Throws<FormatException>(() => DateFormatter.ChangeFormat(testDate));
+        }
     }
 }
